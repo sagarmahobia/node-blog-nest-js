@@ -1,0 +1,13 @@
+
+
+GET http://localhost:3000/auth/login?email=test@test.com&password=password
+
+###
+#token
+
+#test with header token
+GET http://localhost:3000/auth/test
+Authorization: Bearer {{token}}
+
+
+
