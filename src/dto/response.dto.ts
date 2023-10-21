@@ -1,7 +1,5 @@
-class ResponseDto{
-
-  status: boolean;
-  message: string;
+export interface RestResponse {
+  success: boolean;
   data: any;
-
+  message: string;
 }

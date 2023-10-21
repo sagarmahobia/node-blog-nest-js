@@ -1,15 +1,13 @@
-import { Body, Controller, Get, Post, Query, UseGuards } from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
+import { Controller, Get, Query, Req } from "@nestjs/common";
 import { AuthService } from "./auth.service";
-import { Public } from "./public.guard";
-import e from "express";
-
+import { Public } from "./guards/public.guard";
+import { RestResponse } from "../../dto/response.dto";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+@ApiTags("Auth")
 @Controller("auth")
+@ApiBearerAuth()
 export class AuthController {
-
-
   constructor(private authService: AuthService) {
-
   }
 
   @Get("login")
@@ -17,20 +15,12 @@ export class AuthController {
   async login(
     @Query("email") email: string,
     @Query("password") password: string
-  ): Promise<ResponseDto> {
+  ): Promise<RestResponse> {
 
     let token = await this.authService.validateUser(email, password);
 
-    if (!token) {
-      return {
-        status: false,
-        data: null,
-        message: "Login failed"
-      };
-    }
-
     return {
-      status: true,
+      success: true,
       data: {
         token: token
       },
@@ -39,10 +29,13 @@ export class AuthController {
   }
 
   @Get("test")
-  async test(): Promise<ResponseDto> {
+  async test(
+    @Req() req
+  ): Promise<RestResponse> {
+    var user = req.user;
     return {
-      status: true,
-      data: null,
+      success: true,
+      data: user,
       message: "Test success"
     };
   }

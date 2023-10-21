@@ -1,0 +1,49 @@
+###
+#token
+
+
+POST http://localhost:3000/articles/create
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title":"1",
+  "shortDescription": "This is my first todo",
+  "description": "This is my first todo"
+}
+
+
+###
+
+GET http://localhost:3000/articles/list
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+
+###
+
+GET http://localhost:3000/articles/detail?id=64c2d5bdfa991cfe4932fb8f
+Authorization: Bearer {{token}}
+Content-Type: application/json
+Accept: application/json
+
+
+###
+POST http://localhost:3000/articles/update
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id"  : "64c2d6950c31bbcf596424e0",
+  "title": "My Updated todo without param id 64c2d6950c31bbcf596424e0",
+  "shortDescription": "This is my first todo",
+  "description": "This is my first todo",
+  "category": {
+    "id": "64c2d6950c31bbcf596424e0",
+    "name": "My Updated todo without param id 64c2d6950c31bbcf596424e0"
+  }
+}
+
+
